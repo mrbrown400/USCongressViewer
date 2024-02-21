@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Button } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
 const SenateScreen = ({ navigation }) => {
@@ -33,10 +33,17 @@ const SenateScreen = ({ navigation }) => {
       </View>
       <ScrollView style={styles.scrollView}>
         {senators.map(senator => (
-          <View key={senator.person.id} style={styles.memberContainer}>
-            <Text style={styles.memberName}>{senator.person.name}</Text>
-            {/* Display other relevant details */}
-          </View>
+        <TouchableOpacity 
+        key={senator.person.id} 
+        style={styles.memberContainer}
+        onPress={() => navigation.navigate('RepDetails', {
+          repName: senator.person.name,
+          repParty: senator.party,
+          repState: senator.state,
+        })}
+      >
+        <Text style={styles.memberName}>{senator.person.name}</Text>
+      </TouchableOpacity>
         ))}
       </ScrollView>
     </View>
